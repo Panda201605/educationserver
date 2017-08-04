@@ -1,5 +1,7 @@
 package com.linchuanedu.edu.common.model.DTO;
 
+import com.linchuanedu.edu.common.util.Assert;
+
 /**
  * Created by pansp
  * Date: 2017-7-21
@@ -25,5 +27,10 @@ public class RegisterUserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void checkValid(){
+        Assert.assertNotEmpty(phone,"phone");
+        Assert.assertNotEmpty(password,"password");
     }
 }

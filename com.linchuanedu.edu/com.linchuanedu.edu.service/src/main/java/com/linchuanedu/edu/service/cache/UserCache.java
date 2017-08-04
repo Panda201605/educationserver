@@ -1,6 +1,6 @@
 package com.linchuanedu.edu.service.cache;
 
-import com.linchuanedu.edu.common.model.DTO.RegisterUserDTO;
+import com.linchuanedu.edu.common.model.DO.UserDO;
 import com.linchuanedu.edu.dao.IUserDao;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,23 @@ public class UserCache {
     @Resource
     private IUserDao iUserDao;
 
-    public void createUser(RegisterUserDTO createUserDTO){
-        iUserDao.createUser(createUserDTO);
+    public void createUser(UserDO userDO){
+        iUserDao.createUser(userDO);
+    }
+
+    public int checkUserByPhone(UserDO userDO){
+        return iUserDao.checkUserByPhone(userDO);
+    }
+
+    public UserDO getUserByPhone(String phone){
+        return iUserDao.queryUserByPhone(phone);
+    }
+
+    public UserDO getUserById(String userId){
+        return iUserDao.queryUserById(userId);
+    }
+
+    public void updateUserInfo(UserDO userDO){
+        iUserDao.updateUserInfo(userDO);
     }
 }

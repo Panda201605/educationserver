@@ -1,6 +1,6 @@
 package com.linchuanedu.edu.dao;
 
-import com.linchuanedu.edu.common.model.DTO.RegisterUserDTO;
+import com.linchuanedu.edu.common.model.DO.UserDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -13,5 +13,14 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component(value = "iUserDao")
 public interface IUserDao {
-    void createUser(RegisterUserDTO createUserDTO);
+    //创建用户
+    void createUser(UserDO userDO);
+    //查询用户是否存在
+    int checkUserByPhone(UserDO userDO);
+    //通过手机号获取用户信息
+    UserDO queryUserByPhone(String phone);
+    //通过id获取用户信息
+    UserDO queryUserById(String userId);
+    //修改用户信息
+    void updateUserInfo(UserDO userDO);
 }
