@@ -6,7 +6,7 @@ package com.linchuanedu.edu.common.model.DTO;
  * Time: 16:21
  */
 
-public class CreateUserDTO {
+public class RegisterUserDTO {
 
     private String phone;
     private String password;

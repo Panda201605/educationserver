@@ -1,8 +1,6 @@
 package com.linchuanedu.edu.api.controller;
 
-import com.linchuanedu.edu.common.exception.AppException;
-import com.linchuanedu.edu.common.exception.ErrorCode;
-import com.linchuanedu.edu.common.model.DTO.CreateUserDTO;
+import com.linchuanedu.edu.common.model.DTO.RegisterUserDTO;
 import com.linchuanedu.edu.common.model.VO.ServerResponse;
 import com.linchuanedu.edu.service.service.UserService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +24,8 @@ public class UserController extends AbstractController{
     @Resource
     private UserService userService;
 
-    @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
-    public ServerResponse userSignIn(HttpServletRequest request, @RequestBody CreateUserDTO createUserDTO) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+    public ServerResponse userSignIn(HttpServletRequest request, @RequestBody RegisterUserDTO createUserDTO) {
 
         // TODO: 2017/7/22 校验参数
 

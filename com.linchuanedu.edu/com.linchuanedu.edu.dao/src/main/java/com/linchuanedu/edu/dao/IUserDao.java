@@ -1,6 +1,6 @@
 package com.linchuanedu.edu.dao;
 
-import com.linchuanedu.edu.common.model.DTO.CreateUserDTO;
+import com.linchuanedu.edu.common.model.DTO.RegisterUserDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -13,5 +13,5 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component(value = "iUserDao")
 public interface IUserDao {
-    void createUser(CreateUserDTO createUserDTO);
+    void createUser(RegisterUserDTO createUserDTO);
 }
