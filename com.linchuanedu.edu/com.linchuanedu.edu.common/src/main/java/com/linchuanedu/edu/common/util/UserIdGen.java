@@ -11,4 +11,9 @@ public class UserIdGen {
         String subTime = TimeUtil.timeStampToDate(timeStamp,"yyyyMMddHH");
         return subTime+phone.substring(7)+ new Random().nextInt(10);
     }
+
+    public static void main(String arg[]){
+        String test = newUserId(TimeUtil.getTimeStamp(),"15012345678");
+        System.out.println(test);
+    }
 }

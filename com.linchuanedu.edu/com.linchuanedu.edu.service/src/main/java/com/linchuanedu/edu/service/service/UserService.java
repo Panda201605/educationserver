@@ -4,6 +4,7 @@ import com.linchuanedu.edu.common.exception.AppException;
 import com.linchuanedu.edu.common.exception.ErrorCode;
 import com.linchuanedu.edu.common.model.DO.UserDO;
 import com.linchuanedu.edu.common.model.DTO.Role;
+import com.linchuanedu.edu.common.model.DTO.UpdatePwdDTO;
 import com.linchuanedu.edu.common.model.DTO.UserInfoDTO;
 import com.linchuanedu.edu.common.model.VO.UserInfoVO;
 import com.linchuanedu.edu.common.util.TimeUtil;
@@ -37,6 +38,7 @@ public class UserService {
         long createTs = TimeUtil.getTimeStamp();
         String userId = UserIdGen.newUserId(createTs, phone);
         userDO.setUserId(userId);
+        userDO.setBookable(0);
         userDO.setCreateTs(createTs);
         userDO.setRole(Role.Student.getCode());
 
@@ -65,7 +67,26 @@ public class UserService {
 
     public void updateUserInfo(UserInfoDTO userInfoDTO){
         UserDO userDO = buildUserDO(userInfoDTO);
+        userDO.setModifyTs(TimeUtil.getTimeStamp());
         userCache.updateUserInfo(userDO);
+    }
+
+    public void updatePassword(UpdatePwdDTO updatePwdDTO){
+        UserDO userDO = userCache.getUserById(updatePwdDTO.getUserId());
+        if(userDO == null){
+            throw new AppException(ErrorCode.ID_INCORRECT);
+        }
+
+        if(!userDO.getPassword().equals(updatePwdDTO.getOldPwd())){
+            throw new AppException(ErrorCode.ACCOUNT_PASSWORD_INCORRECT);
+        }
+
+        UserDO userDO1 = new UserDO();
+        userDO1.setUserId(updatePwdDTO.getUserId());
+        userDO1.setPassword(updatePwdDTO.getNewPwd());
+
+        userCache.updatePwd(userDO1);
+
     }
 
     private UserInfoVO buildUserInfo(UserDO userDO){
@@ -85,8 +106,11 @@ public class UserService {
         UserDO userDO = new UserDO();
         userDO.setUserId(userInfoDTO.getUserId());
         userDO.setPhone(userInfoDTO.getPhone());
+        userDO.setEmail(userInfoDTO.getEmail());
+        userDO.setNickName(userInfoDTO.getNickName());
         userDO.setRealName(userInfoDTO.getRealName());
         userDO.setAge(userInfoDTO.getAge());
+        userDO.setBirthday(userInfoDTO.getBirthday());
         userDO.setSex(userInfoDTO.getSex());
         userDO.setSchool(userInfoDTO.getSchool());
         userDO.setAddress(userInfoDTO.getAddress());

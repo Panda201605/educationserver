@@ -1,29 +1,23 @@
-package com.linchuanedu.edu.common.model.DO;
+package com.linchuanedu.edu.common.model.DTO;
+
+import com.linchuanedu.edu.common.util.Assert;
 
 import java.util.Date;
 
 /**
- * Created by pansp
- * Date: 2017-7-21
- * Time: 16:21
+ * Created by pansp on 2017-8-4.
  */
-
-public class UserDO {
+public class UserInfoDTO {
     private String userId;
     private String phone;
     private String email;
-    private String password;
     private String nickName;
     private String realName;
-    private Integer role;
     private Integer age;
     private String birthday;
     private Integer sex;
     private String school;
     private String address;
-    private Integer bookable;
-    private Long createTs;
-    private Long modifyTs;
 
     public String getUserId() {
         return userId;
@@ -49,14 +43,6 @@ public class UserDO {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getNickName() {
         return nickName;
     }
@@ -71,14 +57,6 @@ public class UserDO {
 
     public void setRealName(String realName) {
         this.realName = realName;
-    }
-
-    public Integer getRole() {
-        return role;
-    }
-
-    public void setRole(Integer role) {
-        this.role = role;
     }
 
     public Integer getAge() {
@@ -121,27 +99,7 @@ public class UserDO {
         this.address = address;
     }
 
-    public Integer getBookable() {
-        return bookable;
-    }
-
-    public void setBookable(Integer bookable) {
-        this.bookable = bookable;
-    }
-
-    public Long getCreateTs() {
-        return createTs;
-    }
-
-    public void setCreateTs(Long createTs) {
-        this.createTs = createTs;
-    }
-
-    public Long getModifyTs() {
-        return modifyTs;
-    }
-
-    public void setModifyTs(Long modifyTs) {
-        this.modifyTs = modifyTs;
+    public void checkValid(){
+        Assert.assertNotEmpty(userId,"userId");
     }
 }

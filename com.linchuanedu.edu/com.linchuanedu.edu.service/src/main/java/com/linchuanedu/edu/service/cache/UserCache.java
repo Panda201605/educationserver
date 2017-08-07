@@ -38,4 +38,8 @@ public class UserCache {
     public void updateUserInfo(UserDO userDO){
         iUserDao.updateUserInfo(userDO);
     }
+
+    public void updatePwd(UserDO userDO){
+        iUserDao.updatePwd(userDO);
+    }
 }

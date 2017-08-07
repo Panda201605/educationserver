@@ -3,8 +3,8 @@
 <mapper namespace="com.linchuanedu.edu.dao.IUserDao">
     <insert id="createUser" parameterType="UserDO">
         INSERT INTO
-        t_user_info(user_id,phone,password,create_ts)
-        VALUES (#{userId},#{phone},#{password},#{createTs})
+        t_user_info(user_id,phone,password,bookable,create_ts)
+        VALUES (#{userId},#{phone},#{password},#{bookable},#{createTs})
     </insert>
 
     <select id="checkUserByPhone" parameterType="UserDo" resultType="int">
@@ -35,7 +35,7 @@
         phone phone,
         email email,
         password password,
-        nike_name nickName,
+        nick_name nickName,
         real_name realName,
         role role,
         age age,
@@ -50,12 +50,21 @@
     <update id="updateUserInfo" parameterType="UserDo">
         UPDATE t_user_info SET
         <if test="phone != null">phone = #{phone},</if>
+        <if test="email != null">email = #{email},</if>
+        <if test="nickName != null">nick_name = #{nickName},</if>
         <if test="realName != null">real_name = #{realName},</if>
         <if test="age != null">age = #{age},</if>
+        <if test="birthday != null">birthday = #{birthday},</if>
         <if test="sex != null">sex = #{sex},</if>
         <if test="school != null">school = #{school},</if>
         <if test="address != null">address = #{address},</if>
         modify_ts = #{modifyTs}
+        WHERE user_id=#{userId}
+    </update>
+
+    <update id="updatePwd" parameterType="UserDo">
+        UPDATE t_user_info SET
+        password = #{password}
         WHERE user_id=#{userId}
     </update>
 </mapper>

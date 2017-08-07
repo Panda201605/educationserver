@@ -8,7 +8,8 @@ public enum ErrorCode {
     INVALID_PARAMETER("600", "{0} should no be empty!"),
     USER_ALREADY_EXISTS("601","The user already exists!"),
     ACCOUNT_PASSWORD_INCORRECT("602","The account or password not incorrect"),
-    ID_INCORRECT("603","The userId incorrect!")
+    ID_INCORRECT("603","The userId incorrect!"),
+    PERMISSION_DENIED("604","Do not have permission")
     ;
 
     private String code;

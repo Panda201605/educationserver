@@ -23,4 +23,6 @@ public interface IUserDao {
     UserDO queryUserById(String userId);
     //修改用户信息
     void updateUserInfo(UserDO userDO);
+    //修改密码
+    void updatePwd(UserDO userDO);
 }

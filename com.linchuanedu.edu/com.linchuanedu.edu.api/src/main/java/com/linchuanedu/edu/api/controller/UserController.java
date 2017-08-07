@@ -1,6 +1,7 @@
 package com.linchuanedu.edu.api.controller;
 
 import com.linchuanedu.edu.common.model.DTO.RegisterUserDTO;
+import com.linchuanedu.edu.common.model.DTO.UpdatePwdDTO;
 import com.linchuanedu.edu.common.model.DTO.UserInfoDTO;
 import com.linchuanedu.edu.common.model.VO.ServerResponse;
 import com.linchuanedu.edu.common.model.VO.UserInfoVO;
@@ -23,7 +24,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/v1/edu/app/user")
-public class UserController extends AbstractController{
+public class UserController extends AbstractController {
 
     @Resource
     private UserService userService;
@@ -34,29 +35,29 @@ public class UserController extends AbstractController{
         // 校验参数
         registerUserDTO.checkValid();
 
-        userService.createUser(registerUserDTO.getPhone(),registerUserDTO.getPassword());
+        userService.createUser(registerUserDTO.getPhone(), registerUserDTO.getPassword());
 
         //返回
         ServerResponse serverResponse = ServerResponse.successWithData(null);
         return serverResponse;
     }
 
-    @RequestMapping(value = "/login")
-    public ServerResponse userLogin(HttpServletRequest request, @RequestBody RegisterUserDTO registerUserDTO){
+    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+    public ServerResponse userLogin(HttpServletRequest request, @RequestBody RegisterUserDTO registerUserDTO) {
         //校验参数
         registerUserDTO.checkValid();
 
-        String userId = userService.userLogin(registerUserDTO.getPhone(),registerUserDTO.getPassword());
+        String userId = userService.userLogin(registerUserDTO.getPhone(), registerUserDTO.getPassword());
 
         //返回
-        Map<String,String> data = new HashMap<>();
-        data.put("userId",userId);
+        Map<String, String> data = new HashMap<>();
+        data.put("userId", userId);
         ServerResponse serverResponse = ServerResponse.successWithData(data);
         return serverResponse;
     }
 
-    @RequestMapping(value = "/get")
-    public ServerResponse getUserInfo(HttpServletRequest request, @RequestBody UserInfoDTO userInfoDTO){
+    @RequestMapping(value = "/get", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+    public ServerResponse getUserInfo(HttpServletRequest request, @RequestBody UserInfoDTO userInfoDTO) {
         //校验参数
         userInfoDTO.checkValid();
 
@@ -67,13 +68,28 @@ public class UserController extends AbstractController{
         return serverResponse;
     }
 
-    @RequestMapping(value = "/info/update")
-    public void updateUserInfo(HttpServletRequest request, @RequestBody UserInfoDTO userInfoDTO){
+    @RequestMapping(value = "/info/update", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+    public ServerResponse updateUserInfo(HttpServletRequest request, @RequestBody UserInfoDTO userInfoDTO) {
         //校验参数
         userInfoDTO.checkValid();
 
         userService.updateUserInfo(userInfoDTO);
 
+        //返回
+        ServerResponse serverResponse = ServerResponse.successWithData(null);
+        return serverResponse;
+    }
+
+    @RequestMapping(value = "/password/update", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+    public ServerResponse updatePassword(HttpServletRequest request, @RequestBody UpdatePwdDTO updatePwdDTO) {
+        //校验参数
+        updatePwdDTO.checkValid();
+
+        userService.updatePassword(updatePwdDTO);
+
+        //返回
+        ServerResponse serverResponse = ServerResponse.successWithData(null);
+        return serverResponse;
     }
 
 }
