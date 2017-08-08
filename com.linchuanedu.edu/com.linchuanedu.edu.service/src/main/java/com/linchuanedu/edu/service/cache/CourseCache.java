@@ -5,6 +5,7 @@ import com.linchuanedu.edu.dao.ICourseDao;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by pansp on 2017-8-7.
@@ -17,5 +18,13 @@ public class CourseCache {
 
     public void createCourse(CourseDO courseDO){
         iCourseDao.createCourse(courseDO);
+    }
+
+    public void updateCourse(CourseDO courseDO){
+        iCourseDao.updateCourse(courseDO);
+    }
+
+    public List<CourseDO> getCourse(CourseDO courseDO){
+        return iCourseDao.getCourse(courseDO);
     }
 }

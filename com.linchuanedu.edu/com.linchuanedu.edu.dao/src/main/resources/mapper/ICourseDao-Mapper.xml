@@ -6,4 +6,32 @@
         t_course_info(course_name,menber_num_max,enterable,is_show,type,create_by,create_ts)
         VALUES (#{courseName},#{menberNumMax},#{enterable},#{isShow},#{type},#{createBy},#{createTs})
     </insert>
+
+    <update id="updateCourse" parameterType="CourseDO">
+        UPDATE t_course_info SET
+        <if test="courseName != null and courseName != ''">course_name = #{courseName},</if>
+        <if test="menberNumMax != null and menberNumMax != ''">menber_num_max = #{menberNumMax},</if>
+        <if test="enterable != null and enterable != ''">enterable = #{enterable},</if>
+        <if test="isShow != null and isShow != ''">is_show = #{isShow},</if>
+        modify_by = #{modifyBy}
+        WHERE course_id = #{courseId}
+    </update>
+
+    <select id="getCourse" parameterType="CourseDO" resultType="CourseDO">
+        SELECT
+        course_id courseId,
+        course_name courseName,
+        menber_num_max menberNumMax,
+        enterable enterable,
+        is_show isShow,
+        create_by createBy,
+        modify_by modifyBy,
+        create_ts createTs,
+        modify_ts modifyTs
+        FROM t_course_info
+        WHERE type = #{type}
+        <if test="enterable != null">AND enterable = #{enterable}</if>
+        <if test="isShow != null">AND is_show = #{isShow}</if>
+    </select>
+
 </mapper>

@@ -22,4 +22,9 @@ public class TimeUtil {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern); //"yyyy-MM-DD HH:mm:ss"
         return formatter.format(ZonedDateTime.ofInstant(timeStamp, ZoneId.systemDefault()));
     }
+
+    public static void main(String arg[]){
+        System.out.println(timeStampToDate(1492753426,"yyyy-MM-dd HH:mm:ss"));
+    }
+
 }
