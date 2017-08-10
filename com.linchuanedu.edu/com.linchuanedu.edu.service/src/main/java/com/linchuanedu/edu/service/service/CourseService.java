@@ -4,10 +4,7 @@ import com.linchuanedu.edu.common.exception.AppException;
 import com.linchuanedu.edu.common.exception.ErrorCode;
 import com.linchuanedu.edu.common.model.DO.CourseDO;
 import com.linchuanedu.edu.common.model.DO.UserDO;
-import com.linchuanedu.edu.common.model.DTO.CreateCourseDTO;
-import com.linchuanedu.edu.common.model.DTO.GetCourseDTO;
-import com.linchuanedu.edu.common.model.DTO.Role;
-import com.linchuanedu.edu.common.model.DTO.UpdateCourseDTO;
+import com.linchuanedu.edu.common.model.DTO.*;
 import com.linchuanedu.edu.common.model.VO.CourseInfoVO;
 import com.linchuanedu.edu.common.util.TimeUtil;
 import com.linchuanedu.edu.service.cache.CourseCache;
@@ -69,12 +66,13 @@ public class CourseService {
 
         for (CourseDO course : listCourseDO) {
             CourseInfoVO courseInfoVO = new CourseInfoVO();
-            buildCourseInfoVO(course,courseInfoVO);
+            buildCourseInfoVO(course, courseInfoVO);
             listCourseInfoVO.add(courseInfoVO);
         }
 
         return listCourseInfoVO;
     }
+
 
 
     private CourseDO buildCourseDO(CreateCourseDTO createCourseDTO) {
@@ -106,9 +104,9 @@ public class CourseService {
         courseInfoVO.setIsShow(courseDO.getIsShow());
         courseInfoVO.setCreateBy(courseDO.getCreateBy());
         courseInfoVO.setModifyBy(courseDO.getModifyBy());
-        courseInfoVO.setCreateTs(TimeUtil.timeStampToDate(courseDO.getCreateTs(),PATTERN));
-        if (courseDO.getModifyTs() != null){
-            courseInfoVO.setModifyTs(TimeUtil.timeStampToDate(courseDO.getModifyTs(),PATTERN));
+        courseInfoVO.setCreateTs(TimeUtil.timeStampToDate(courseDO.getCreateTs(), PATTERN));
+        if (courseDO.getModifyTs() != null) {
+            courseInfoVO.setModifyTs(TimeUtil.timeStampToDate(courseDO.getModifyTs(), PATTERN));
         }
 
     }

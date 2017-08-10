@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linchuanedu.edu.dao.IUserCourseDao">
+
+    <insert id="addUserCourse" parameterType="UserCourseDO">
+        INSERT INTO t_user_course_info (user_id,course_id,delete_tag)
+        VALUES (userId,courseId,deleteTag)
+    </insert>
+
+    <update id="deleteUserCourse" parameterType="UserCourseDO">
+        UPDATE t_user_course_info SET
+        delete_tag = #{deleteTag}
+        WHERE
+        user_id = #{userId}
+        AND
+        course_id = #{courseId}
+    </update>
+
+    <select id="getCourseByUserId" parameterType="String" resultType="Integer">
+        SELECT
+        course_id
+        FROM t_user_course_info
+        WHERE user_id = #{userId} AND delete_tag = 0
+    </select>
+
+</mapper>

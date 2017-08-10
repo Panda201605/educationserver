@@ -20,7 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/v1/edu/app/subject")
-public class SubjectController {
+public class SubjectController extends AbstractController{
 
     @Resource
     private SubjectService subjectService;

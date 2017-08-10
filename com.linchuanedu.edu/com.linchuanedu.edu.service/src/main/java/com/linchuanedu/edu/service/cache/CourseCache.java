@@ -1,5 +1,6 @@
 package com.linchuanedu.edu.service.cache;
 
+import com.linchuanedu.edu.common.model.DO.CourseArrangeDO;
 import com.linchuanedu.edu.common.model.DO.CourseDO;
 import com.linchuanedu.edu.dao.ICourseDao;
 import org.springframework.stereotype.Component;

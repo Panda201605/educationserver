@@ -1,9 +1,11 @@
 package com.linchuanedu.edu.api.controller;
 
-import com.linchuanedu.edu.common.model.DTO.*;
-import com.linchuanedu.edu.common.model.VO.CourseInfoVO;
+import com.linchuanedu.edu.common.model.DTO.AddPlaceDTO;
+import com.linchuanedu.edu.common.model.DTO.GetPlaceDTO;
+import com.linchuanedu.edu.common.model.DTO.UpdatePlaceDTO;
+import com.linchuanedu.edu.common.model.VO.PlaceVO;
 import com.linchuanedu.edu.common.model.VO.ServerResponse;
-import com.linchuanedu.edu.service.service.CourseService;
+import com.linchuanedu.edu.service.service.PlaceService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,21 +16,22 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Created by pansp on 2017-8-7.
+ * Created by pansp on 2017-8-10.
  */
 @RestController
-@RequestMapping(value = "/v1/edu/app/course")
-public class CourseController extends AbstractController {
+@RequestMapping(value = "/v1/edu/app/place")
+public class PlaceController extends AbstractController{
 
     @Resource
-    private CourseService courseService;
+    private PlaceService placeService;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
-    public ServerResponse createCourse(HttpServletRequest request, @RequestBody CreateCourseDTO createCourseDTO) {
+    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
+    public ServerResponse addPlace(HttpServletRequest request, @RequestBody AddPlaceDTO addPlaceDTO) {
+
         //校验参数
-        createCourseDTO.checkValid();
+        addPlaceDTO.checkValid();
 
-        courseService.createCourse(createCourseDTO);
+        placeService.addPlace(addPlaceDTO);
 
         //返回
         ServerResponse serverResponse = ServerResponse.successWithData(null);
@@ -36,11 +39,12 @@ public class CourseController extends AbstractController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
-    public ServerResponse updateCourse(HttpServletRequest request, @RequestBody UpdateCourseDTO updateCourseDTO) {
-        //校验参数
-        updateCourseDTO.checkValid();
+    public ServerResponse updatePlace(HttpServletRequest request, @RequestBody UpdatePlaceDTO  updatePlaceDTO) {
 
-        courseService.updateCourse(updateCourseDTO);
+        //校验参数
+        updatePlaceDTO.checkValid();
+
+        placeService.updatePlace(updatePlaceDTO);
 
         //返回
         ServerResponse serverResponse = ServerResponse.successWithData(null);
@@ -48,9 +52,12 @@ public class CourseController extends AbstractController {
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
-    public ServerResponse getCourse(HttpServletRequest request, @RequestBody GetCourseDTO getCourseDTO) {
+    public ServerResponse getPlace(HttpServletRequest request, @RequestBody GetPlaceDTO getPlaceDTO) {
 
-        List<CourseInfoVO> listData =  courseService.getCourse(getCourseDTO);
+        //校验参数
+        getPlaceDTO.checkValid();
+
+        List<PlaceVO> listData = placeService.getPlace(getPlaceDTO);
 
         //返回
         ServerResponse serverResponse = ServerResponse.successWithData(listData);
