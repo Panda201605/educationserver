@@ -34,10 +34,12 @@ public class FileController extends AbstractController {
     //文件上传相关代码
     @RequestMapping(value = "/upload")
     @ResponseBody
-    public String upload(@RequestParam("name") MultipartFile file) {
+    public String upload(@RequestParam("name") MultipartFile file, @RequestParam("more") String more) {
         if (file.isEmpty()) {
             return "文件为空";
         }
+
+        logger.info("另外一个参数：" + more);
         // 获取文件名
         String fileName = file.getOriginalFilename();
         logger.info("上传的文件名为：" + fileName);
@@ -72,7 +74,8 @@ public class FileController extends AbstractController {
             //当前是从该工程的WEB-INF//File//下获取文件(该目录可以在下面一行代码配置)然后下载到C:\\users\\downloads即本机的默认下载的目录
             String realPath = request.getServletContext().getRealPath(
                     "//WEB-INF//");
-            File file = new File(realPath, fileName);
+//            File file = new File(realPath, fileName);
+            File file = new File("");
             if (file.exists()) {
                 response.setContentType("application/force-download");// 设置强制下载不打开
                 response.addHeader("Content-Disposition",
@@ -143,4 +146,38 @@ public class FileController extends AbstractController {
         }
         return "upload successful";
     }
+
+
+    @RequestMapping("/download2")
+    public void downProcess(HttpServletRequest request, HttpServletResponse response, @RequestParam(required = true) String filekey,@RequestParam(required = false)String fileName) {
+        try {
+//            String path = sysConfig.getDownpath() + filekey;
+            String path = "E:\\test\\" + filekey;
+            File file = new File(path);
+            String contentType = "application/octet-stream";
+            //下载文件
+            InputStream fis = new BufferedInputStream(new FileInputStream(path));
+            byte[] buffer = new byte[fis.available()];
+            fis.read(buffer);
+            fis.close();
+            //清空response
+            response.reset();
+//            if(fileName==null){
+//                fileName = "ApprovalInfo.xls";
+//            }
+            //设置response的Header
+            response.addHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("utf-8"), "ISO-8859-1"));
+            response.addHeader("Content-Length", "" + file.length());
+            OutputStream fos = new BufferedOutputStream(response.getOutputStream());
+            response.setContentType(contentType);
+            fos.write(buffer);
+            fos.flush();
+            fos.close();
+            //删除文件
+//            file.delete();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
