@@ -1,17 +1,17 @@
 package com.linchuanedu.edu.api.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.linchuanedu.edu.common.model.DTO.CreateCourseDTO;
+import com.linchuanedu.edu.common.model.VO.ServerResponse;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -34,12 +34,12 @@ public class FileController extends AbstractController {
     //文件上传相关代码
     @RequestMapping(value = "/upload")
     @ResponseBody
-    public String upload(@RequestParam("name") MultipartFile file, @RequestParam("more") String more) {
+    public String upload(@RequestParam("file") MultipartFile file, @RequestParam("token") String token) {
         if (file.isEmpty()) {
             return "文件为空";
         }
 
-        logger.info("另外一个参数：" + more);
+        logger.info("另外一个参数：" + token);
         // 获取文件名
         String fileName = file.getOriginalFilename();
         logger.info("上传的文件名为：" + fileName);
@@ -148,10 +148,11 @@ public class FileController extends AbstractController {
     }
 
 
-    @RequestMapping("/download2")
-    public void downProcess(HttpServletRequest request, HttpServletResponse response, @RequestParam(required = true) String filekey,@RequestParam(required = false)String fileName) {
+    @RequestMapping("/download2/{appId}")
+    public void downProcess(HttpServletRequest request, HttpServletResponse response, @RequestParam(required = true) String filekey, @RequestParam(required = false)String fileName, @PathVariable("appId") String appId) {
         try {
 //            String path = sysConfig.getDownpath() + filekey;
+            logger.info("appId is ====> {}", appId);
             String path = "E:\\test\\" + filekey;
             File file = new File(path);
             String contentType = "application/octet-stream";
@@ -178,6 +179,16 @@ public class FileController extends AbstractController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public ServerResponse createCourse(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession();
+        Cookie cookie = new Cookie("test","wahaha");
+        response.addCookie(cookie);
+        System.out.println("come in!");
+
+        return new ServerResponse("2000", "good");
     }
 
 }
