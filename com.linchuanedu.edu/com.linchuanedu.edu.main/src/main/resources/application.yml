@@ -1,7 +1,10 @@
 # Server settings
 server:
     port: 18080
-    address: 10.133.146.60
+    address: 127.0.0.1
+management:
+    security:
+        enabled: false
 
 # SPRING PROFILES
 spring:
@@ -9,7 +12,7 @@ spring:
 #    active: prod
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://10.133.146.88:3306/edu?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://10.133.146.36:3306/edu?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
 

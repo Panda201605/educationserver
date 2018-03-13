@@ -120,6 +120,7 @@ public class Test {
         List<String> words = readFileByLines(file);
         String content = readFile(file1);
 
+        long startTime = System.currentTimeMillis();
         for (String word : words) {
             if (content.contains(word)) {
                 num ++;
@@ -127,6 +128,7 @@ public class Test {
             }
         }
 
+        System.out.println("contains匹配时间：" + (System.currentTimeMillis() - startTime) + "ms");
         System.out.println("包含敏感词个数：" + num + " 含有的敏感词为：" + result.toString());
 
     }
